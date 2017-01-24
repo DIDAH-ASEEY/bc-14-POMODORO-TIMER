@@ -80,17 +80,47 @@ def set_shortBreak_db():
     
     list_all()
     print
-    print "SHORT BREAK SETTING"
+    print "SHORT BREAK SETTINGS"
     task_id = input("ENTER THE TASK ID FOR TASK TO EDIT => ")
+    
     time = configurations.set_short_break()
 
     conn = sqlite3.connect("pomodoro_timer.db")
     c = conn.cursor()
-    c.execute("UPDATE pomodoro SET SHORT_BREAK = '%s' WHERE id = '%s' " %(time, task_id))
+    c.execute("UPDATE pomodoro SET SHORT_BREAK = '%s' WHERE ID = '%s' " %(time, task_id))
     conn.commit()
     c.close()
               
 
+
+def set_longBreak_db():
+    list_all()
+    print
+    print "LONG BREAK SETTINGS"
+    task_id = input('ENTER THE TASK ID FOR TASK TO EDIT => ')
+    time = configurations.set_long_break()
+
+    conn = sqlite3.connect('pomodoro_timer.db')
+    c = conn.cursor()
+    c.execute("UPDATE pomodoro SET LONG_BREAK = '%s' WHERE ID ='%s' " %(time,task_id))
+    conn.commit()
+    c.close()
+
+
+def set_sound_db():
+    list_all()
+    print
+    print "SOUND SETTINGS"
+    task_id = input("ENTER THE TASK ID FOR TASK TO EDIT => ")
+
+    sound = configurations.set_sound()
+    conn = sqlite3.connect("pomodoro_timer.db")
+    c = conn.cursor()
+    c.execute("UPDATE pomodoro SET SOUND='%s' WHERE ID='%s' " %(sound,task_id))
+    conn.commit()
+    c.close()    
+        
+    
     
 
     
