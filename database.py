@@ -8,21 +8,35 @@ def create_table():
 
     print "succesfully connected"
 
-    conn.execute('''CREATE TABLE POMODORO_TIMER
+    conn.execute('''CREATE TABLE POMODORO_TIMER IF NOT EXISTS
        (ID INT PRIMARY KEY     NOT NULL,
        TASK_TITTLE     TEXT    NOT NULL,
        TIMESTAMP       TEXT    NOT NULL,
-       CYCLES          INT,
+       
        SHORT_BREAK     TEXT,
        LONG_BREAK      TEXT,
-       TOTAL_DURATION  TEXT,
+       POMODORO_TIME   TEXT,
+       CYCLES          INT,
        SOUND           INT);''')
 
-    print "table created successfully"
+    conn.commit()                               #commits the current transaction to enable visibilit of changes to other database connections
+    c.close()
 
-create_table()
+
+def data_input(task_title, timestamp, pomodoro_time, cycles,SB,LB,sound):
+    conn = sqlite.connect('database.db')
+    c = conn.cursor()
+
+    c.execute(" INSERT INTO POMODORO_TIMER (TASK_TITTLE, TIMESTAMP , SHORT_BREAK, LONG_BREAK,POMODORO_TIME,CYCLES, SOUND ) VALUES(?,?,?,?,?,?,?)",
+              (tast_tittle, time_stamp, SB, LB, pomodoro_time, cycles,sound))
+    
+    conn.commit()
+    
+    c.close()
+
+
+
+
+
 
     
-
-
-
