@@ -35,7 +35,19 @@ def data_input(task_title, timestamp, pomodoro_time, cycles,SB,LB,sound):
     c.close()
 
 
+def delete_list():
+    conn = sqlite3.connect('database.db')
 
+    c = conn.cursor()
+    c.execute("DELETE from POMODORO_TIMER")
+
+    print "Total Number of rows deleted => %s" %conn.total_changes
+
+    conn.commit()
+    c.close()
+
+
+    
 
 
 
