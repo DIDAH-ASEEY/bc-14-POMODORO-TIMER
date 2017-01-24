@@ -1,6 +1,7 @@
 import sys
 import sqlite3
 import configurations
+from prettytable import PrettyTable as table
 
 
 
@@ -52,7 +53,7 @@ def delete_list():
 
 def list_all():
     
-    conn = sqlite3.connect('pomodoro_timer.py')
+    conn = sqlite3.connect('pomodoro_timer.db')
     c = conn.cursor()
     c.execute('''SELECT * FROM pomodoro''')
 
@@ -75,7 +76,24 @@ def list_all():
     print tasks_list
 
 
+def set_shortBreak_db():
+    
+    list_all()
+    print
+    print "SHORT BREAK SETTING"
+    task_id = input("ENTER THE TASK ID FOR TASK TO EDIT => ")
+    time = configurations.set_short_break()
 
+    conn = sqlite3.connect("pomodoro_timer.db")
+    c = conn.cursor()
+    c.execute("UPDATE pomodoro SET SHORT_BREAK = '%s' WHERE id = '%s' " %(time, task_id))
+    conn.commit()
+    c.close()
+              
+
+    
+
+    
 
 
         
