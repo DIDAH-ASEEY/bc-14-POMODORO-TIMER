@@ -2,13 +2,16 @@ import sys
 import sqlite3
 import configurations
 
+
+
+
 def create_table():
     conn = sqlite3.connect('pomodoro_timer.db')
     c = conn.cursor()
 
     print "succesfully connected"
 
-    conn.execute('''CREATE TABLE POMODORO_TIMER IF NOT EXISTS
+    conn.execute('''CREATE TABLE pomodoro 
        (ID INT PRIMARY KEY     NOT NULL,
        TASK_TITTLE     TEXT    NOT NULL,
        TIMESTAMP       TEXT    NOT NULL,
@@ -24,10 +27,10 @@ def create_table():
 
 
 def data_input(task_title, timestamp, pomodoro_time, cycles,SB,LB,sound):
-    conn = sqlite.connect('database.db')
+    conn = sqlite.connect('pomodoro_timer.db')
     c = conn.cursor()
 
-    c.execute(" INSERT INTO POMODORO_TIMER (TASK_TITTLE, TIMESTAMP , SHORT_BREAK, LONG_BREAK,POMODORO_TIME,CYCLES, SOUND ) VALUES(?,?,?,?,?,?,?)",
+    c.execute(" INSERT INTO pomodoro (TASK_TITTLE, TIMESTAMP , SHORT_BREAK, LONG_BREAK,POMODORO_TIME,CYCLES, SOUND ) VALUES(?,?,?,?,?,?,?)",
               (tast_tittle, time_stamp, SB, LB, pomodoro_time, cycles,sound))
     
     conn.commit()
@@ -36,10 +39,10 @@ def data_input(task_title, timestamp, pomodoro_time, cycles,SB,LB,sound):
 
 
 def delete_list():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('pomodoro_timer.db')
 
     c = conn.cursor()
-    c.execute("DELETE from POMODORO_TIMER")
+    c.execute("DELETE from pomodoro")
 
     print "Total Number of rows deleted => %s" %conn.total_changes
 
@@ -47,6 +50,45 @@ def delete_list():
     c.close()
 
 
+def list_all():
+    
+    conn = sqlite3.connect('pomodoro_timer.py')
+    c = conn.cursor()
+    c.execute('''SELECT * FROM pomodoro''')
+
+    data = c.fetchall()
+
+    print "LIST OF ALL TASKS"
+
+    tasks_list = table(['ID','TASK TITLE', 'DATE','POMODORO TIME','CYCLES'])
+    
+
+    for rows in data:
+        id = str(row[0])
+        title = str(row[1])
+        date = str(row[2])
+        time = str(row[3])
+        cycles = str(row[4])
+
+        tasks_list.add_row([id,title, date, time,cycles])
+
+    print tasks_list
+
+
+
+
+
+        
+        
+        
+        
+        
+        
+
+    
+    
+
+    
     
 
 
