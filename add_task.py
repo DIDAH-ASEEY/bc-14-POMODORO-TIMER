@@ -4,6 +4,7 @@ import datetime
 import time
 import database
 import configurations
+import alarm
 
 
 def cycle(duration, pomodoro_time):
@@ -60,8 +61,32 @@ def new(title):
     print "CYCLES: %s "%cycles
     print "TIMESTAMP:        %s" %timestamp
 
-    database.data_input(title,timestamp,pomodoro_time,cycles,short_break, long_break,sound)
+    database.data_input(title,timestamp,pomodoro_time,(cycles+1),short_break, long_break,sound)
 
+    num = 0
+    end = ''
+    display = timer_display.display_box(pomodoro_time,title)
+
+    while cycles > num:
+        count = 4
+        while count > 0 and (cycles+1) > num:
+            view = display
+            if sound == True:
+                alarm.end_sound()
+            timer_display.display_box(short_break,"**SHORT BREAK**")
+            count -= 1
+            num +=1
+        
+        display
+        if sound==True:
+            alarm.end_sound()
+        timer_display.display_box(long_break,"**LONG BREAK**")
+
+        alarm.end_sound()
+        num += 1
+
+        
+        
     
         
         
