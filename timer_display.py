@@ -19,11 +19,11 @@ def seconds(time):
 
 def display_box(time,title):
     pygame.init()
-    width = 240
-    height = 100
+    width = 500
+    height = 300
     displayer = pygame.display.set_mode((width,height))
     pygame.display.set_caption("***POMODORO TIMER ***" + "***TASK: " + title + "***")
-    font = pygame.font.SysFont('cooperblack', 35)
+    font = pygame.font.SysFont('cooperblack', 80)
 
     total_seconds = seconds(time)
 
