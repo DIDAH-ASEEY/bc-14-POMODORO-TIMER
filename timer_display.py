@@ -2,6 +2,7 @@
 import pygame
 import os
 from termcolor import colored
+import sound
 
 def seconds(time):
     duration = time.split(':')
@@ -52,9 +53,13 @@ def display_box(time,title):
         pygame.display.flip()
         pygame.time.wait(1000)
         total_seconds -=1
+
+    
     pygame.quit()
 
 
 
-display_box('00:00:15','EAT')
+
+
+
     
