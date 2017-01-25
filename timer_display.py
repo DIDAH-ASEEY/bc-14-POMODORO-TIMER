@@ -5,6 +5,7 @@ from termcolor import colored
 import sound
 
 def seconds(time):
+    
     duration = time.split(':')
 
     if len(duration) != 3:

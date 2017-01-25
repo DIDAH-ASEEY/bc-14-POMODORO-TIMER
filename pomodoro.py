@@ -71,17 +71,17 @@ def docopt_cmd(func):
     return fn
 
 class MyInteractive(cmd.Cmd):
-    cprint(figlet_format('POMODORO TIMER', font='starwars'),
-       'white', 'on_blue', attrs=['bold'])
+    cprint(figlet_format('POMODORO  *TIMER*', font='epic'),
+       'red', attrs=['bold'])
 
     intro ='WELCOME TO POMODORO TIMER' \
              + """
 Usage:
     POMODORO start <task-title>
-    POMODORO list <date>            eg. yyyy/mm/dd
+    POMODORO list <date>            eg. yy/mm/dd
     POMODORO list_all
     POMODORO delete_all
-    POMODORO config <command>       eg. short_break, long_break, sound
+    POMODORO config <command>       eg. short_break, long_break, sound, pomodoro_time
     POMODORO (-i | --interactive)
     POMODORO (-h | --help)
     POMODORO exit
@@ -112,7 +112,7 @@ Options:
     @docopt_cmd
     def do_list(self, arg):
         """Usage: list <date>"""
-        list_day(arg['<date>'])
+        database.list_day(arg['<date>'])
 
     @docopt_cmd
     def do_list_all(self, arg):
@@ -121,16 +121,20 @@ Options:
 
     @docopt_cmd
     def do_config(self, args):
-        """Usage: config <command>"""
+        """Usage: config <cmmand>"""
         if args['<command>'] == 'short_break':
             database.set_shortBreak_db()
         elif args['<command>'] == 'long_break':
             database.set_longBreak_db()
         elif args['<command>'] == 'sound':
             database.set_sound_db()
+        elif args['<command>'] == 'pomodoro_time':
+            database.set_pomodoro_db()
+        
+               
 
     @docopt_cmd
-    def do_delete_all(self):
+    def do_delete_all(self,arg):
         """Usage: delete_all"""
         database.delete_list()
 

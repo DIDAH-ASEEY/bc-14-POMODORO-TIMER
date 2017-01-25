@@ -45,7 +45,8 @@ def delete_list():
     c = conn.cursor()
     c.execute("DELETE from pomodoro")
 
-    print "Total Number of rows deleted => %s" %conn.total_changes
+    print "TOTAL NUMBER OF ROWS DELETED => %s" %conn.total_changes
+    print
 
     conn.commit()
     c.close()
@@ -74,6 +75,33 @@ def list_all():
         tasks_list.add_row([id,title, date, time,cycles])
 
     print tasks_list
+    c.close()
+
+def list_day(timestamp):
+    
+    conn = sqlite3.connect('pomodoro_timer.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM Pomodoro WHERE TIMESTAMP = ?;", (timestamp,))
+
+    data = c.fetchall()
+
+    print "LIST OF TASKS"
+
+    tasks_list = table(['ID','TASK TITLE', 'DATE','POMODORO TIME','CYCLES'])
+    
+
+    for row in data:
+        id = str(row[0])
+        title = str(row[1])
+        date = str(row[2])
+        time = str(row[3])
+        cycles = str(row[6])
+
+        tasks_list.add_row([id,title, date, time,cycles])
+
+    print tasks_list
+    c.close()
+
 
 
 def set_shortBreak_db():
@@ -90,6 +118,7 @@ def set_shortBreak_db():
     c.execute("UPDATE pomodoro SET SHORT_BREAK = '%s' WHERE ID = '%s' " %(time, task_id))
     conn.commit()
     c.close()
+
               
 
 
@@ -119,8 +148,20 @@ def set_sound_db():
     c.execute("UPDATE pomodoro SET SOUND='%s' WHERE ID='%s' " %(sound,task_id))
     conn.commit()
     c.close()    
-        
-    
+
+def set_pomodoro_db():
+    list_all()
+    print
+    print "CYCLE TIME SETTINGS"
+    task_id = input("ENTER THE TASK ID FOR TASK TO EDIT => ")
+
+    sound = configurations.set_time()
+    conn = sqlite3.connect("pomodoro_timer.db")
+    c = conn.cursor()
+    c.execute("UPDATE pomodoro SET POMODORO_TIME='%s' WHERE ID='%s' " %(sound,task_id))
+    conn.commit()
+    c.close()
+
     
 
     

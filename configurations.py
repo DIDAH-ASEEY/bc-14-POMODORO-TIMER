@@ -11,6 +11,7 @@ def set_time():
         pomodoro_time = time.split(':')
         for i in [0,1,2]:
                 pomodoro_time[i] = int(pomodoro_time[i])
+        return time
         
     else:
 
@@ -38,6 +39,8 @@ def set_short_break():
         for i in [0,1,2]:
             SB[i] = int(SB[i])
 
+        return short_break
+
     else:
         SB = short_break.split(':')
         if len(SB) != 3:
@@ -48,6 +51,7 @@ def set_short_break():
             for i in [0,1,2]:
                 SB[i] = int(SB[i])
             return short_break
+    
 
 def set_long_break():
     print "SET THE LONG BREAK TIME"
@@ -109,7 +113,11 @@ def set_total_taskTime():
     if duration == '':
         duration = '01:00:00'
         print 'DEFAULT DURATION TIME SET: %s' %duration
-        
+        TT = duration.split(':')
+        for i in [0,1,2]:
+                TT[i] = int(TT[i])
+        return duration
+    
         
     else:
         TT = duration.split(':')
