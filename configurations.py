@@ -56,8 +56,14 @@ def set_long_break():
 
     if long_break == '':
         print
-        print 'PLEASE ENTER THE TIME! HH:MM:SS'
-        return set_long_break()
+        long_break = "00:15:00"
+        print "DEFAULT LONG BREAK TIME SET: " 
+        LB = long_break.split(':')
+
+        for i in [0,1,2]:
+            LB[i] = int(LB[i])
+            
+        return long_break
     
     else:
         LB = long_break.split(':')
@@ -101,7 +107,7 @@ def set_total_taskTime():
     duration = raw_input("TIME FORMAT HH:MM:SS => ")
 
     if duration == '':
-        duration = '02:00:00'
+        duration = '01:00:00'
         print 'DEFAULT DURATION TIME SET: %s' %duration
         
         

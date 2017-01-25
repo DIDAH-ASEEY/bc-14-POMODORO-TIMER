@@ -24,17 +24,13 @@ def new(title):
     data = (raw_input("ENTER 'set' TO CONFIGURE THE TIME OR PRESS <ENTER> TO PROCEED WITH DEFAULT SETTINGS => ")).lower()
 
     if data == '':
-        print "**DEFAULT SETTINGS SET** "
-        print "TASK TIME:        01:00:00"
-        print "POMODORO TIME:    00:15:00"
-        print "SHORT BREAK TIME: 00:05:00"
-        print "LONG BREAK TIME:  00:08:00"
-        print "SOUND : True"
+        print "***DEFAULT SETTINGS SET*** "
+        
 
-        duration = "00:45:00"
-        pomodoro_time = "00:15:00"
+        duration = "01:00:00"
+        pomodoro_time = "00:25:00"
         short_break = "00:05:00"
-        long_break = "00:08:00"
+        long_break = "00:15:00"
         sound = True
 
     elif data == 'set':
@@ -43,19 +39,30 @@ def new(title):
         short_break = configurations.set_short_break()
         long_break = configurations.set_long_break()
         sound = configurations.set_sound()
-        print "**CONFIGURATIONS SET**"
-        print "TASK TIME:        %s"%duration
-        print "POMODORO TIME:    %s"%pomodoro_time
-        print "SHORT BREAK TIME: %s"%short_break
-        print "LONG BREAK TIME:  %s"%long_break
-        print "SOUND : %s "%sound
+        
 
 
     else:
         print "INVALID INPUT! try again"
         return new(title)
+    day = time.time()
 
-    day = str(datetime.         
+    timestamp = str(datetime.datetime.fromtimestamp(day).strftime("%y/%m/%d"))
+
+    cycles = cycle(duration, pomodoro_time)
+
+    print "**CONFIGURATIONS SETTINGS**"
+    print "TASK TIME:        %s"%duration
+    print "POMODORO TIME:    %s"%pomodoro_time
+    print "SHORT BREAK TIME: %s"%short_break
+    print "LONG BREAK TIME:  %s"%long_break
+    print "SOUND : %s " %sound
+    print "CYCLES: %s "%cycles
+    print "TIMESTAMP:        %s" %timestamp
+
+    database.data_input(title,timestamp,pomodoro_time,cycles,short_break, long_break,sound)
+
+    
         
         
         
