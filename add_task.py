@@ -54,10 +54,8 @@ def new(title):
     else:
         print "INVALID INPUT! try again"
         return new(title)
-    
 
-        
-        
+    day = str(datetime.         
         
         
         
