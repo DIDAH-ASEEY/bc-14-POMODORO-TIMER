@@ -26,11 +26,17 @@ import os
 import cmd
 import datetime
 import pygame
+import configurations
+import add_task
+import sound
+import database
+import timer_display
 
 from colorama import init
 from termcolor import cprint 
 from pyfiglet import figlet_format
 from docopt import docopt, DocoptExit
+
 
 
 def docopt_cmd(func):
@@ -68,11 +74,11 @@ class MyInteractive(cmd.Cmd):
     cprint(figlet_format('POMODORO TIMER', font='starwars'),
        'white', 'on_blue', attrs=['bold'])
 
-    mainpage = 'WELCOME TO POMODORO TIMER' \
+    intro ='WELCOME TO POMODORO TIMER' \
              + """
 Usage:
     POMODORO start <task-title>
-    POMODORO list <date>            eg. 2016:11:09
+    POMODORO list <date>            eg. yyyy/mm/dd
     POMODORO list_all
     POMODORO delete_all
     POMODORO config <command>       eg. short_break, long_break, sound
@@ -90,7 +96,7 @@ Options:
 
     def do_exit(self, arg):
         """Usage: exit"""
-        print "CLOSSING APPLICATION!....."
+        print "CLOSING APPLICATION!....."
         
         exit()
 
@@ -111,6 +117,31 @@ Options:
     @docopt_cmd
     def do_list_all(self, arg):
         """Usage: list_all"""
-        configurations.list_all()
+        database.list_all()
+
+    @docopt_cmd
+    def do_config(self, args):
+        """Usage: config <command>"""
+        if args['<command>'] == 'short_break':
+            database.set_shortBreak_db()
+        elif args['<command>'] == 'long_break':
+            database.set_longBreak_db()
+        elif args['<command>'] == 'sound':
+            database.set_sound_db()
+
+    @docopt_cmd
+    def do_delete_all(self):
+        """Usage: delete_all"""
+        database.delete_list()
+
+
+opt = docopt(__doc__, sys.argv[1:])
+
+if opt['--interactive']:
+    try:
+        # print (__doc__)
+        MyInteractive().cmdloop()
+    except KeyboardInterrupt:
+        print "\n"
 
     
