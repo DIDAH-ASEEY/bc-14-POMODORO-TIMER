@@ -23,7 +23,7 @@ Follow the following steps to succesfully _**install**_ the program:
 4. Enter **`> cd desktop\bc-14-POMODORO-TIMER`** . 
 5. Finally enter **`> python pomodoro.py`** to run the program.
 
-**_NB: The follows steps assumes a windows operating system_**
+**_NB: This installation steps assumes a windows operating system_**
 
 ## The Pomodoro Timer Program
 The program displays a list of commands on the interface.
