@@ -1,4 +1,25 @@
 #!/usr/bin/python
+"""
+This example uses docopt with the built in cmd module to demonstrate an
+interactive command application.
+
+Usage:
+    pomodoro start <task-title>
+    pomodoro list <date>
+    pomodoro list_all
+    pomodoro config short_break | long_break | sound
+    pomodoro clear
+    pomodoro (-i | --interactive)
+    pomodoro (-h | --help | --version)
+    pomodoro exit
+
+Options:
+    -i, --interactive  Interactive Mode
+    -h, --help  Show this screen and exit.
+
+Note:
+    use interactive for best perfomance
+"""
 
 import sys
 import os
@@ -10,10 +31,6 @@ from colorama import init
 from termcolor import cprint 
 from pyfiglet import figlet_format
 from docopt import docopt, DocoptExit
-
-cprint(figlet_format('ANDELA PROJECT', font='starwars'),
-       'white', 'on_blue', attrs=['bold'])
-
 
 
 def docopt_cmd(func):
@@ -30,8 +47,8 @@ def docopt_cmd(func):
             # The DocoptExit is thrown when the args do not match.
             # We print a message to the user and the usage block.
 
-            print colored('Invalid Command!','red')
-            print(e)
+            print ('Invalid Command!','red')
+            print (e)
             return
 
         except SystemExit:
@@ -48,23 +65,52 @@ def docopt_cmd(func):
     return fn
 
 class MyInteractive(cmd.Cmd):
+    cprint(figlet_format('POMODORO TIMER', font='starwars'),
+       'white', 'on_blue', attrs=['bold'])
 
-    mainpage = 'Welcome to pomodoro timer!' \
-            + ' (type help for a list of commands.)' + """
+    mainpage = 'WELCOME TO POMODORO TIMER' \
+             + """
 Usage:
-    pomodoro start <task>
-    pomodoro list <date>            eg. 2016:11:09
-    pomodoro list_all
-    pomodoro delete_all
-    pomodoro config <command>       eg. short_break, long_break, sound
-    pomodoro (-i | --interactive)
-    pomodoro (-h | --help)
-    pomodoro exit
+    POMODORO start <task-title>
+    POMODORO list <date>            eg. 2016:11:09
+    POMODORO list_all
+    POMODORO delete_all
+    POMODORO config <command>       eg. short_break, long_break, sound
+    POMODORO (-i | --interactive)
+    POMODORO (-h | --help)
+    POMODORO exit
 
 Options:
     -i, --interactive  Interactive Mode
     -h, --help  Show this screen and exit.
 """
-    prompt = 'enter a command:  '
+    prompt = 'Enter a command: POMODORO  '
     file = None
+    
+
+    def do_exit(self, arg):
+        """Usage: exit"""
+        print "CLOSSING APPLICATION!....."
+        
+        exit()
+
+    @docopt_cmd
+    def do_start(self, arg):
+        """Usage: start <task-title>"""
+        try:
+            add_task.new(arg['<task-title>'])
+        except KeyboardInterrupt:
+            pygame.quit()
+            print ('\nTASK ACCOMPLISHED')
+
+    @docopt_cmd
+    def do_list(self, arg):
+        """Usage: list <date>"""
+        list_day(arg['<date>'])
+
+    @docopt_cmd
+    def do_list_all(self, arg):
+        """Usage: list_all"""
+        configurations.list_all()
+
     
