@@ -38,7 +38,7 @@ def display_box(time, title):
 
         return "%i : %i : %i " % (hours, minutes, seconds)
 
-    while total_seconds > 0:
+    while total_seconds >= 0:
         if total_seconds <= 30:
             displayer.fill((255, 255, 255))
 
@@ -57,3 +57,5 @@ def display_box(time, title):
         total_seconds -= 1
 
     pygame.quit()
+    
+    

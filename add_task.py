@@ -69,6 +69,7 @@ def new(title):
 
     loop = 1
     break_status = ''
+    
 
     while cycles >= loop:
         count = 4
@@ -103,3 +104,6 @@ def new(title):
 
         count = 4
         loop += 1
+    print
+    print "**CONGRATULATIONS**"
+    print "*TASK COMPLETED*"
