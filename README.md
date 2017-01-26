@@ -31,6 +31,8 @@ Follow the following steps to succesfully _**install**_ the program:
 ## The Pomodoro Timer Program
 The program displays a list of commands on the interface.
 
+![main](https://cloud.githubusercontent.com/assets/25131942/22342473/96dea0fe-e405-11e6-8326-eb7d24b4d012.PNG)
+
 * The user can  _start_ a new task by typing `start <task-title>
 
  ![start](https://cloud.githubusercontent.com/assets/25131942/22341962/e0091770-e403-11e6-9784-7d16f8f2ce9d.PNG)
@@ -45,7 +47,7 @@ The program displays a list of commands on the interface.
  
 * The user can configure the _short break_ time of previous tasks
 
- short](https://cloud.githubusercontent.com/assets/25131942/22341952/dd21886c-e403-11e6-9d43-cd342879231b.PNG)
+ ![short](https://cloud.githubusercontent.com/assets/25131942/22341952/dd21886c-e403-11e6-9d43-cd342879231b.PNG)
 
 * The user can configure the _long break_ time of previous tasks
 
