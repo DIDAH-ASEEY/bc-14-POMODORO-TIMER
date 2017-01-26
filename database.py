@@ -40,7 +40,7 @@ def delete_list():
     conn = sqlite3.connect('pomodoro_timer.db')
 
     c = conn.cursor()
-    c.execute("DELETE from pomodoro")
+    c.execute("DELETE from pomodoro ")
 
     print "TOTAL NUMBER OF ROWS DELETED => %s" % conn.total_changes
     print
@@ -59,16 +59,20 @@ def list_all():
 
     print "LIST OF ALL TASKS"
 
-    tasks_list = table(['ID', 'TASK TITLE', 'DATE', 'POMODORO TIME', 'CYCLES'])
+    tasks_list = table(['ID', 'TASK TITLE', 'DATE',
+                        'POMODORO TIME', 'CYCLES', 'SHORT BREAK', 'LONG BREAK'])
 
     for row in data:
         id = str(row[0])
         title = str(row[1])
         date = str(row[2])
-        time = str(row[3])
+        time = str(row[5])
         cycles = str(row[6])
+        short_break = str(row[3])
+        long_break = str(row[4])
 
-        tasks_list.add_row([id, title, date, time, cycles])
+        tasks_list.add_row(
+            [id, title, date, time, cycles, short_break, long_break])
 
     print tasks_list
     c.close()
@@ -84,16 +88,20 @@ def list_day(timestamp):
 
     print "LIST OF TASKS"
 
-    tasks_list = table(['ID', 'TASK TITLE', 'DATE', 'POMODORO TIME', 'CYCLES'])
+    tasks_list = table(['ID', 'TASK TITLE', 'DATE',
+                        'POMODORO TIME', 'CYCLES', 'SHORT BREAK', 'LONG BREAK'])
 
     for row in data:
         id = str(row[0])
         title = str(row[1])
         date = str(row[2])
-        time = str(row[3])
+        time = str(row[5])
         cycles = str(row[6])
+        short_break = str(row[3])
+        long_break = str(row[4])
 
-        tasks_list.add_row([id, title, date, time, cycles])
+        tasks_list.add_row(
+            [id, title, date, time, cycles, short_break, long_break])
 
     print tasks_list
     c.close()
@@ -114,6 +122,7 @@ def set_shortBreak_db():
               (time, task_id))
     conn.commit()
     c.close()
+    print "*SHORT BREAK TIME CHANGED*"
 
 
 def set_longBreak_db():
@@ -129,6 +138,7 @@ def set_longBreak_db():
               (time, task_id))
     conn.commit()
     c.close()
+    print "*LONG BREAK TIME CHANGED*"
 
 
 def set_sound_db():
@@ -152,10 +162,11 @@ def set_pomodoro_db():
     print "CYCLE TIME SETTINGS"
     task_id = input("ENTER THE TASK ID FOR TASK TO EDIT => ")
 
-    sound = configurations.set_time()
+    time = configurations.set_time()
     conn = sqlite3.connect("pomodoro_timer.db")
     c = conn.cursor()
     c.execute("UPDATE pomodoro SET POMODORO_TIME='%s' WHERE ID='%s' " %
-              (sound, task_id))
+              (time, task_id))
+    print "*CHANGES MADE*"
     conn.commit()
     c.close()

@@ -26,10 +26,9 @@ import datetime
 import pygame
 import configurations
 import add_task
-import alarm
+import sound
 import database
 import timer_display
-
 from colorama import init
 from termcolor import cprint
 from pyfiglet import figlet_format
@@ -77,6 +76,7 @@ class MyInteractive(cmd.Cmd):
         + """
 Usage:
     POMODORO start <task-title>
+    POMODORO list <date>            eg. yy/mm/dd
     POMODORO list_all
     POMODORO delete_all
     POMODORO config <command>       eg. short_break, long_break, sound, pomodoro_time
@@ -104,12 +104,23 @@ Options:
             add_task.new(arg['<task-title>'])
         except KeyboardInterrupt:
             pygame.quit()
-            print ('\nTASK ACCOMPLISHED')
+            print ('\nTASK CANCELLED')
+
+    @docopt_cmd
+    def do_list(self, arg):
+        """usage: list <date>"""
+        try:
+            database.list_day(arg['<date>'])
+        except:
+            print "TASKS FOR DAY: %s NOT AVAILABLE" % arg['<date>']
 
     @docopt_cmd
     def do_list_all(self, arg):
         """Usage: list_all"""
-        database.list_all()
+        try:
+            database.list_all()
+        except:
+            print "OOPS!! NOT AVAILABLE, try again!"
 
     @docopt_cmd
     def do_config(self, args):
