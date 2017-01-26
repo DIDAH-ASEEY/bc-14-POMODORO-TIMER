@@ -2,7 +2,7 @@
 import pygame
 import os
 from termcolor import colored
-import sound
+import alarm
 
 
 def seconds(time):

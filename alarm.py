@@ -1,8 +1,8 @@
 import winsound
 
 def end_sound():
-    sound = winsound.PlaySound('sound_sonar.wav', winsound.SND_FILENAME)
-    return sound
+    winsound.PlaySound('sound.wav', winsound.SND_FILENAME)
+    
 
     
 

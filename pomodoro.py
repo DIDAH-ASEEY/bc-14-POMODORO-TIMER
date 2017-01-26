@@ -26,7 +26,7 @@ import datetime
 import pygame
 import configurations
 import add_task
-import sound
+import alarm
 import database
 import timer_display
 
