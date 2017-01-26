@@ -17,6 +17,7 @@ Below are some of the basic requirements to run the program:
 * Git should be installed in your computer, if not do so here, _[Git Download](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjxsYyak8zRAhWsI8AKHR9YDL4QFggfMAA&url=https%3A%2F%2Fgit-scm.com%2Fdownloads&usg=AFQjCNHZLDrEFiZHXrz1JGq57NFHFrcfkA&sig2=4ht1GzU2s-G7fLM3fuDxYA)_
 * A stable internet connection is recommended
 * SQLITE3 should be installed, if not, do so on _[SQLITE3](github.com/sqlitebrowser/sqlitebrowser/releases)_
+
 ## **Installation**
 Follow the following steps to succesfully _**install**_ the program:
 
