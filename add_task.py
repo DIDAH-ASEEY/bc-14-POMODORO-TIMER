@@ -1,9 +1,10 @@
+import alarm
 import timer_display
 import datetime
 import time
 import database
 import configurations
-import alarm
+
 
 
 def cycle(duration, pomodoro_time):
@@ -42,8 +43,14 @@ def new(title):
         sound = configurations.set_sound()
 
     else:
-        print "INVALID INPUT! try again"
-        return new(title)
+        print "INVALID INPUT! default settings set"
+        tasks_length = "00:01:00"
+        task_time = "00:00:15"
+        short_break = "00:00:05"
+        long_break = "00:00:08"
+        sound = True
+
+        
     day = time.time()
 
     timestamp = str(datetime.datetime.fromtimestamp(day).strftime("%y/%m/%d"))
@@ -62,28 +69,42 @@ def new(title):
     database.data_input(title, timestamp, pomodoro_time,
                         (cycles + 1), short_break, long_break, sound)
 
-    num = 0
-    break_point = ''
-    display = timer_display.display_box(pomodoro_time, title)
-    SB_display = timer_display.display_box(short_break, "SHORT BREAK")
-    LB_display = timer_display.display_box(long_break, "LONG BREAK")
-
-    while cycles > num:
-        count = 3
-        while count > 0 and cycles > num:
-            num += 1
-            status = display
+    loop = 1
+    break_status = ''
+    
+    while cycles >= loop:
+        count = 4
+        while count > 0 and cycles >= loop:
+            
+            status = timer_display.display_box(pomodoro_time,title)
+            print "END OF CYCLE: %s " % (loop)
+            
             if sound == True:
                 alarm.end_sound()
-            SB_display
-            alarm.end_sound()
+                
+            
+            timer_display.display_box(short_break, "short break")
+            print "*END OF BREAK*"
+            
+            if sound == True:
+                alarm.end_sound()
+                                   
             count -= 1
-            num += 1
-        display
+            loop += 1
+            
+        timer_display.display_box(pomodoro_time, title)
+        print "END OF CYCLE: %s " % (loop)
+        
         if sound == True:
             alarm.end_sound()
-        LB_display
-        alarm.end_sound()
+        
+            
+        timer_display.display_box(long_break, "long break")
+        print "*END OF LONG BREAK*"
+        
+        if sound == True:
+            alarm.end_sound()
 
-        num += 1
-        count -= 1
+        count = 4   
+        loop += 1
+        
