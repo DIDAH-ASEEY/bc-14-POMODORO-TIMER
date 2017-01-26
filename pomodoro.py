@@ -5,10 +5,9 @@ interactive command application.
 
 Usage:
     pomodoro start <task-title>
-    pomodoro list <date>
     pomodoro list_all
-    pomodoro config short_break | long_break | sound
-    pomodoro clear
+    pomodoro config short_break | long_break | sound | pomodoro_time
+    pomodoro delete_all
     pomodoro (-i | --interactive)
     pomodoro (-h | --help | --version)
     pomodoro exit
@@ -22,7 +21,6 @@ Note:
 """
 
 import sys
-import os
 import cmd
 import datetime
 import pygame
@@ -33,10 +31,9 @@ import database
 import timer_display
 
 from colorama import init
-from termcolor import cprint 
+from termcolor import cprint
 from pyfiglet import figlet_format
 from docopt import docopt, DocoptExit
-
 
 
 def docopt_cmd(func):
@@ -50,10 +47,11 @@ def docopt_cmd(func):
             opt = docopt(fn.__doc__, arg)
 
         except DocoptExit as e:
+
             # The DocoptExit is thrown when the args do not match.
             # We print a message to the user and the usage block.
 
-            print ('Invalid Command!','red')
+            print ('Invalid Command!')
             print (e)
             return
 
@@ -70,15 +68,15 @@ def docopt_cmd(func):
     fn.__dict__.update(func.__dict__)
     return fn
 
+
 class MyInteractive(cmd.Cmd):
     cprint(figlet_format('POMODORO  *TIMER*', font='epic'),
-       'red', attrs=['bold'])
+           'red', attrs=['bold'])
 
-    intro ='WELCOME TO POMODORO TIMER' \
-             + """
+    intro = 'WELCOME TO POMODORO TIMER' \
+        + """
 Usage:
     POMODORO start <task-title>
-    POMODORO list <date>            eg. yy/mm/dd
     POMODORO list_all
     POMODORO delete_all
     POMODORO config <command>       eg. short_break, long_break, sound, pomodoro_time
@@ -92,12 +90,11 @@ Options:
 """
     prompt = 'Enter a command: POMODORO  '
     file = None
-    
 
     def do_exit(self, arg):
         """Usage: exit"""
         print "CLOSING APPLICATION!....."
-        
+
         exit()
 
     @docopt_cmd
@@ -110,18 +107,13 @@ Options:
             print ('\nTASK ACCOMPLISHED')
 
     @docopt_cmd
-    def do_list(self, arg):
-        """Usage: list <date>"""
-        database.list_day(arg['<date>'])
-
-    @docopt_cmd
     def do_list_all(self, arg):
         """Usage: list_all"""
         database.list_all()
 
     @docopt_cmd
     def do_config(self, args):
-        """Usage: config <cmmand>"""
+        """Usage: config <command>"""
         if args['<command>'] == 'short_break':
             database.set_shortBreak_db()
         elif args['<command>'] == 'long_break':
@@ -130,11 +122,9 @@ Options:
             database.set_sound_db()
         elif args['<command>'] == 'pomodoro_time':
             database.set_pomodoro_db()
-        
-               
 
     @docopt_cmd
-    def do_delete_all(self,arg):
+    def do_delete_all(self, arg):
         """Usage: delete_all"""
         database.delete_list()
 
@@ -147,5 +137,3 @@ if opt['--interactive']:
         MyInteractive().cmdloop()
     except KeyboardInterrupt:
         print "\n"
-
-    
